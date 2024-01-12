@@ -23,6 +23,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+    res.send('Witaj, to jest strona główna!');
+  });
+  
 //   mongoose.connect(
 //     process.env.DB_CONNECT,
 //     { useNewUrlParser: true, useUnifiedTopology: true },
