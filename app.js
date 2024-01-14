@@ -31,7 +31,7 @@ app.use("/api/about-section", aboutSectionRoute);
 
 mongoose
   .connect(process.env.MONGO_DB_URL, {
-    auth: { authSource: "admin" },
+    // auth: { authSource: "admin" },
     user: process.env.MONGO_DB_USER,
     pass: process.env.MONGO_DB_PASSWORD,
   })
