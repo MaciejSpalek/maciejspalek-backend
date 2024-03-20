@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const { getCraft } = require("../controllers/AboutSectionController");
+const { getAll, createOrUpdate } = require("../controllers/CraftController");
 
-router.get("/get_craft", getCraft);
+router.put("/create-or-update", createOrUpdate);
+router.get("/get-all", getAll);
 
 module.exports = router;

@@ -1,12 +1,13 @@
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 5000;
-const dotenv = require("dotenv");
-const cors = require("cors");
-const aboutSectionRoute = require("./src/routes/aboutSection");
-const mongoose = require("mongoose");
+require("dotenv").config({ path: __dirname + "/.env" });
 
-dotenv.config({ path: __dirname + "/.env" });
+const express = require("express");
+const craftRoute = require("./src/routes/craft");
+const imageRoute = require("./src/routes/image");
+const postRoute = require("./src/routes/post");
+const connection = require("./src/config/db");
+const homeRoute = require("./src/routes/home");
+const cors = require("cors");
+const app = express();
 
 app.use(
   cors({
@@ -15,7 +16,7 @@ app.use(
   })
 );
 
-app.use(express.json());
+app.use(express.json({ limit: "100mb" }));
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -27,19 +28,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/about-section", aboutSectionRoute);
+app.use("/api/home", homeRoute);
+app.use("/api/craft", craftRoute);
+app.use("/api/image", imageRoute);
+app.use("/api/post", postRoute);
+app.use('/images', express.static('images'));
 
-mongoose
-  .connect(process.env.MONGO_DB_URL, {
-    // auth: { authSource: "admin" },
-    user: process.env.MONGO_DB_USER,
-    pass: process.env.MONGO_DB_PASSWORD,
-  })
-  .then(() => {
-    console.log("Connected to db");
-  })
-  .catch((error) => {
-    console.log("Something went wrong", error);
-  });
+connection();
 
-app.listen(PORT, () => console.log(`Server is running...`));
+const port = process.env.PORT || 5000;
+app.listen(port, console.log(`Server is running on port ${port}...`));
