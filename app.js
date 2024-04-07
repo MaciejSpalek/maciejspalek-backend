@@ -6,6 +6,7 @@ const imageRoute = require("./src/routes/image");
 const postRoute = require("./src/routes/post");
 const connection = require("./src/config/db");
 const homeRoute = require("./src/routes/home");
+const mailRoute = require("./src/routes/mailer");
 const cors = require("cors");
 const app = express();
 
@@ -32,6 +33,7 @@ app.use("/api/home", homeRoute);
 app.use("/api/craft", craftRoute);
 app.use("/api/image", imageRoute);
 app.use("/api/post", postRoute);
+app.use("/api/email", mailRoute);
 app.use('/images', express.static('images'));
 
 connection();

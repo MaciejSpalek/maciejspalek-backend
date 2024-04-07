@@ -1,19 +1,41 @@
 const Post = require("../model/Post");
 
-exports.create = async (req, res) => {
+exports.createOne = async (req, res) => {
   try {
-    const craft = new Post(req.body);
-    console.log(craft);
-    await craft.save();
+    const post = new Post(req.body);
+    await post.save();
+    res.send({ status: 200, message: "Sucessfully created" });
+  } catch (error) {
+    res.send({ status: 400, message: error });
+  }
+};
+
+exports.deleteOne = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Post.findByIdAndDelete(id);
+    res.send({ status: 200, message: "Sucessfully deleted" });
+  } catch (error) {
+    res.send({ status: 400, message: error });
+  }
+};
+
+exports.updateOne = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const body = req.body;
+
+    await Post.findByIdAndUpdate(id, body);
     res.send({ status: 200, message: "Sucessfully updated" });
   } catch (error) {
     res.send({ status: 400, message: error });
   }
 };
 
-exports.getList = async (_, res) => {
+exports.getList = async (req, res) => {
   try {
-    const posts = await Post.find({});
+    const { type, limit } = req.query;
+    const posts = await Post.find(type ? { type } : {}).limit(limit);
     res.status(200).json(posts);
   } catch (error) {
     res.send({ status: 400, message: error });

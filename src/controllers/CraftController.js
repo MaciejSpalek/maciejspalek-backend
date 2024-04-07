@@ -1,7 +1,4 @@
 const Craft = require("../model/Craft");
-const FormData = require("form-data");
-const axios = require("axios");
-const fs = require("fs");
 
 exports.createOrUpdate = async (req, res) => {
   try {
@@ -25,4 +22,14 @@ exports.createOrUpdate = async (req, res) => {
 exports.getAll = async (_, res) => {
   const craft = await Craft.find({});
   res.json(craft);
+};
+
+exports.getOne = async (req, res) => {
+  try {
+    const type = req.params.type;
+    const [craft] = (await Craft.find({ type })) || [];
+    res.json(craft);
+  } catch (error) {
+    res.json(error);
+  }
 };
