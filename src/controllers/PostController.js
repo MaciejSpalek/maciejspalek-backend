@@ -41,3 +41,13 @@ exports.getList = async (req, res) => {
     res.send({ status: 400, message: error });
   }
 };
+
+exports.getPostsAmount = async (req, res) => {
+  try {
+    const { type } = req.query;
+    const postsAmount = await Post.countDocuments({ type });
+    res.status(200).json(postsAmount);
+  } catch (error) {
+    res.send({ status: 400, message: error });
+  }
+};

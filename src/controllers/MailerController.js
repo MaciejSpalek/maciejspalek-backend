@@ -1,4 +1,4 @@
-const getEmailHtml = require("../../helpers");
+const getEmailHtml = require("../helpers/email");
 const transporter = require("../config/nodemailer");
 
 exports.send = async (req, res) => {

@@ -27,8 +27,8 @@ exports.getAll = async (_, res) => {
 exports.getOne = async (req, res) => {
   try {
     const type = req.params.type;
-    const [craft] = (await Craft.find({ type })) || [];
-    res.json(craft);
+    const [craft] = await Craft.find({ type });
+    res.send(craft);
   } catch (error) {
     res.json(error);
   }
