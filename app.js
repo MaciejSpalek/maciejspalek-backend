@@ -21,8 +21,9 @@ app.use(
 
 app.use(express.json({ limit: "100mb" }));
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", req.headers.origin);
+app.use((_, res, next) => {
+  res.header("Access-Control-Allow-Origin", '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header("Access-Control-Allow-Credentials", true);
   res.header(
     "Access-Control-Allow-Headers",
