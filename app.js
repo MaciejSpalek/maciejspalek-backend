@@ -15,7 +15,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", process.env.WEB_URL],
+    origin: ["http://localhost:3000", "https://maciejspalek.vercel.app"],
   })
 );
 
