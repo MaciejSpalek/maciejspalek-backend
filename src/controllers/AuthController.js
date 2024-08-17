@@ -37,14 +37,15 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { error } = loginValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  const validationErrors = loginValidation(req.body);
+  if (validationErrors) return res.status(422).send(validationErrors);
 
   const user = await User.findOne({ name: req.body.name });
-  if (!user) return res.status(400).send("Name is not found");
+  if (!user) return res.status(422).send({ name: "Name is not found" });
+
 
   const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass) return res.status(400).send("Invalid password");
+  if (!validPass) return res.status(422).send({ password: "Invalid password" });
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
     expiresIn: `${process.env.TOKEN_LIFE_TIME}s`,
