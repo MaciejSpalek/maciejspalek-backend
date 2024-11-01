@@ -3,6 +3,7 @@ const Post = require("../model/Post");
 exports.createOne = async (req, res) => {
   try {
     const post = new Post(req.body);
+    console.log(post);
     await post.save();
     res.send({ status: 200, message: "Sucessfully created" });
   } catch (error) {
@@ -35,7 +36,9 @@ exports.updateOne = async (req, res) => {
 exports.getList = async (req, res) => {
   try {
     const { type, limit } = req.query;
-    const posts = await Post.find(type ? { type } : {}).limit(limit);
+    const posts = await Post.find(type ? { type } : {})
+      .sort({ created_at: -1 })
+      .limit(limit);
     res.status(200).json(posts);
   } catch (error) {
     res.send({ status: 400, message: error });

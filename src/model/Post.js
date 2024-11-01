@@ -19,6 +19,10 @@ const postSchema = new mongoose.Schema({
   price: {
     type: String,
   },
+  created_at: {
+    type: Date,
+    required: true,
+  }
 });
 
 module.exports = mongoose.model("Post", postSchema);
