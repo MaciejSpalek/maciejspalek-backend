@@ -1,4 +1,4 @@
-# Maciej Spałek - Art portfolio
+# Server for Art portfolio
 
 ## Web page
 
@@ -16,7 +16,8 @@ Server for my art porfolio, hosted on MyDevil.
 | Express    | Lightweight and flexible routing framework                       |
 | Nodemailer | Module for Node.js applications that allows easy email sending   |
 | Multer     | Multer is a node. js middleware for handling multipart/form-data |
-| BcryptJS   | the JavaScript implementation of the Bcrypt hashing algorithm    |
+| BcryptJS   | The JavaScript implementation of the Bcrypt hashing algorithm    |
+| Mongoose   | Node.js-based Object Data Modeling (ODM) library for MongoDB    |
 
 &nbsp;
 
