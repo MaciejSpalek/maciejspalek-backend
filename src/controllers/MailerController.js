@@ -8,7 +8,20 @@ exports.send = async (req, res) => {
     await transporter.sendMail({
       to: "maciejspalek.art@gmail.com",
       subject: name,
-      html: getEmailHtml({ email, name, message }),
+      html: getEmailHtml({ name, message }),
+    });
+
+    const emailForClient = {
+      name: "Maciej Spałek",
+      message:
+        "Good morning, thank you very much for reaching out. I will do my best to respond as soon as possible. Best regards.",
+    };
+
+    await transporter.sendMail({
+      to: email,
+      subject:
+        "Your message has been received",
+      html: getEmailHtml(emailForClient),
     });
 
     res.status(200).send({ message: "Successfully sended" });

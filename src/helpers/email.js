@@ -1,4 +1,4 @@
-const getEmailHtml = ({ name, email, message }) =>
+const getEmailHtml = ({ name, message }) =>
   `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -29,7 +29,7 @@ const getEmailHtml = ({ name, email, message }) =>
       <body>
       
       <div class="container">
-        <h1>From: ${name}, email: ${email}</h1>
+        <h1>From: ${name}</h1>
         <p>
           ${message}
         </p>
