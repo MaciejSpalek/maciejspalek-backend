@@ -8,6 +8,7 @@ const connection = require("./src/config/db");
 const homeRoute = require("./src/routes/home");
 const mailRoute = require("./src/routes/mailer");
 const authRoute = require("./src/routes/auth");
+const { DOMAINS } = require("./src/helpers/domains");
 
 const cors = require("cors");
 const app = express();
@@ -15,11 +16,11 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "https://maciejspalek.vercel.app", "https://maciejspalek.pl"],
+    origin: DOMAINS,
   })
 );
 
-app.use(express.json({ limit: "100mb" }));
+app.use(express.json({ limit: "10mb" }));
 
 app.use((_, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

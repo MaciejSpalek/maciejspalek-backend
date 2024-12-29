@@ -21,6 +21,7 @@ const loginValidation = (data) => {
   });
   return errors;
 };
+
 module.exports = {
   registerValidation,
   loginValidation,
