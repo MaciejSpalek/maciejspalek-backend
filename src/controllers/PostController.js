@@ -3,7 +3,6 @@ const Post = require("../model/Post");
 exports.createOne = async (req, res) => {
   try {
     const post = new Post(req.body);
-    console.log(post);
     await post.save();
     res.send({ status: 200, message: "Sucessfully created" });
   } catch (error) {

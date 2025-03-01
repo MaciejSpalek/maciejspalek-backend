@@ -1,6 +1,7 @@
 require("dotenv").config({ path: __dirname + "/.env" });
 
 const express = require("express");
+
 const craftRoute = require("./src/routes/craft");
 const imageRoute = require("./src/routes/image");
 const postRoute = require("./src/routes/post");
@@ -8,6 +9,8 @@ const connection = require("./src/config/db");
 const homeRoute = require("./src/routes/home");
 const mailRoute = require("./src/routes/mailer");
 const authRoute = require("./src/routes/auth");
+const articleRoute = require("./src/routes/article");
+
 const { DOMAINS } = require("./src/helpers/domains");
 
 const cors = require("cors");
@@ -39,6 +42,8 @@ app.use("/api/image", imageRoute);
 app.use("/api/post", postRoute);
 app.use("/api/email", mailRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/article", articleRoute);
+
 app.use("/images", express.static("images"));
 
 connection();
