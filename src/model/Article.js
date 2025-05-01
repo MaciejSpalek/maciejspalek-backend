@@ -1,22 +1,28 @@
 const mongoose = require("mongoose");
-const { BLOCK_TYPE } = require("../helpers");
+const { BLOCK_TYPE } = require("../helpers/article");
 
 const blockSchema = new mongoose.Schema({
+  title: {
+    type: String,
+  },
   description: {
     type: String,
     required: true,
   },
   type: {
-    type: BLOCK_TYPE.COMMON || BLOCK_TYPE.HINT,
+    type: String,
     default: BLOCK_TYPE.COMMON,
   },
   image: {
     type: String,
-    required: true,
   },
 });
 
 const articleSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: true,

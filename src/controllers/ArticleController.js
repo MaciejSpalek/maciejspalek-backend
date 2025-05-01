@@ -20,12 +20,12 @@ exports.createOne = async (req, res) => {
 exports.getOne = async (req, res) => {
   try {
     const id = req.params.id;
-    const body = req.body;
 
-    const article = await Article.findByIdAndUpdate(id, body);
-    res.send({ data: article, status: 200, message: "Sucessfully updated" });
+    const article = await Article.findById(id);
+    console.log({ article });
+    res.status(200).send({ data: article, status: 200 });
   } catch (error) {
-    res.send({ status: 400, message: error });
+    res.status(400).send({ status: 400, message: error });
   }
 };
 
@@ -35,9 +35,9 @@ exports.updateOne = async (req, res) => {
     const body = req.body;
 
     await Article.findByIdAndUpdate(id, body);
-    res.send({ status: 200, message: "Sucessfully updated" });
+    res.status(200).send({ status: 200, message: "Sucessfully updated" });
   } catch (error) {
-    res.send({ status: 400, message: error });
+    res.status(400).send({ status: 400, message: error });
   }
 };
 
@@ -46,21 +46,17 @@ exports.deleteOne = async (req, res) => {
     const id = req.params.id;
 
     await Article.findByIdAndDelete(id);
-    res.send({ status: 200, message: "Sucessfully deleted" });
+    res.status(200).send({ status: 200, message: "Sucessfully deleted" });
   } catch (error) {
-    res.send({ status: 400, message: error });
+    res.status(400).send({ status: 400, message: error });
   }
 };
 
-exports.getAll = async (req, res) => {
+exports.getAll = async (_, res) => {
   try {
-    const { type, limit } = req.query;
-
-    const articles = await Article.find(type ? { type } : {})
-      .sort({ created_at: -1 })
-      .limit(limit);
+    const articles = await Article.find();
     res.status(200).json(articles);
   } catch (error) {
-    res.send({ status: 400, message: error });
+    res.status(400).send({ status: 400, message: error });
   }
 };

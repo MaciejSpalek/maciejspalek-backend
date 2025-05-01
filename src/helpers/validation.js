@@ -27,10 +27,12 @@ const articleValidation = (data) => {
     description: Joi.string().min(3).required(),
     image: Joi.string().required(),
     summary: Joi.string().min(3).max(1000).required(),
-    blocks: Joi.object({
+    title: Joi.string().min(3).max(1000).required(),
+    blocks: Joi.array().items({
       type: Joi.string().required(),
       description: Joi.string().min(3).max(1000).required(),
-      image: Joi.string().required(),
+      image: Joi.string().allow(null, ""),
+      title: Joi.string().allow(null, ""),
     }).required(),
   }).validate(data, { abortEarly: false });
 
