@@ -12,7 +12,6 @@ exports.createOne = async (req, res) => {
     await article.save();
     res.send({ status: 200, message: "Sucessfully created" });
   } catch (error) {
-    console.log(error);
     res.send({ status: 400, message: error });
   }
 };
@@ -22,7 +21,6 @@ exports.getOne = async (req, res) => {
     const id = req.params.id;
 
     const article = await Article.findById(id);
-    console.log({ article });
     res.status(200).send({ data: article, status: 200 });
   } catch (error) {
     res.status(400).send({ status: 400, message: error });
@@ -52,9 +50,11 @@ exports.deleteOne = async (req, res) => {
   }
 };
 
-exports.getAll = async (_, res) => {
+exports.getAll = async (req, res) => {
   try {
-    const articles = await Article.find();
+    const articles = await Article.find()
+      .sort({ created_at: -1 })
+      .limit(req.query.limit);
     res.status(200).json(articles);
   } catch (error) {
     res.status(400).send({ status: 400, message: error });
