@@ -1,22 +1,19 @@
-const getEmailHtml = require("../helpers/email");
 const transporter = require("../config/nodemailer");
+const {emailForClient, getEmailHtml} = require("../helpers/email");
 
 exports.send = async (req, res) => {
   const { name, message, email } = req.body;
 
   try {
+    // Message to my email
     await transporter.sendMail({
       to: "maciejspalek.art@gmail.com",
-      subject: name,
+      subject: `${name} / ${email}`,
       html: getEmailHtml({ name, message }),
     });
 
-    const emailForClient = {
-      name: "Maciej Spałek",
-      message:
-        "Good morning, thank you very much for reaching out. I will do my best to respond as soon as possible. Best regards.",
-    };
 
+    // Message to sender
     await transporter.sendMail({
       to: email,
       subject:

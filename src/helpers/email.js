@@ -39,4 +39,10 @@ const getEmailHtml = ({ name, message }) =>
       </html>
       `;
 
-module.exports = getEmailHtml;
+const emailForClient = {
+    name: "Maciej Spałek",
+    message:
+        "Good morning, thank you very much for reaching out. I will do my best to respond as soon as possible. Best regards.",
+};
+
+module.exports = {getEmailHtml, emailForClient};
