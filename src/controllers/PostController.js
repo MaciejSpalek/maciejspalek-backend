@@ -10,6 +10,15 @@ exports.createOne = async (req, res) => {
   }
 };
 
+exports.getOne = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id)
+    res.status(200).send({ data: post, status: 200 });
+  } catch (error) {
+    res.send({ status: 400, message: error });
+  }
+};
+
 exports.deleteOne = async (req, res) => {
   try {
     const id = req.params.id;
