@@ -2,10 +2,11 @@
   "name": "webapps",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node dist/app.js",
+    "dev": "nodemon --watch . --ext ts --exec ts-node app.ts",
+    "build": "tsc"
   },
   "author": "Maciej Spalek",
   "license": "ISC",
@@ -26,7 +27,15 @@
     "nodemailer": "^6.9.13"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
     "@types/hapi__joi": "^17.1.15",
-    "nodemon": "^2.0.22"
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.1",
+    "@types/nodemailer": "^7.0.4",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }
