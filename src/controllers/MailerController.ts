@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import {transporter} from '../config/nodemailer';
-import { emailForClient, getEmailHtml } from '../helpers/email';
+import { transporter } from '../config/nodemailer';
+import { emailForClient, getEmailHtml } from '../helpers';
 
 interface EmailRequest {
   name: string;
@@ -13,20 +13,20 @@ export const send = async (req: Request, res: Response): Promise<void> => {
 
   try {
     // Message to my email
-    await transporter.sendMail({
+    await transporter().sendMail({
       to: "maciejspalek.art@gmail.com",
       subject: `${name} / ${email}`,
       html: getEmailHtml({ name, message }),
     });
 
     // Message to sender
-    await transporter.sendMail({
+    await transporter().sendMail({
       to: email,
       subject: "Your message has been received",
       html: getEmailHtml(emailForClient),
     });
 
-    res.status(200).send({ message: "Successfully sended" });
+    res.status(200).send({ message: "Successfully sent" });
   } catch (error) {
     res.status(400).send({ status: 400, message: error });
   }

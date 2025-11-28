@@ -57,7 +57,7 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
     const articles = await Article.find()
       .sort({ created_at: -1 })
-      .limit(req.query.limit ? parseInt(req.query.limit as string) : undefined);
+      .limit(req.query.limit ? parseInt(req.query.limit as string) : 10);
     res.status(200).json(articles);
   } catch (error) {
     res.status(400).send({ status: 400, message: error });

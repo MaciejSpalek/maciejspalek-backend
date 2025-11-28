@@ -31,7 +31,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const savedUser = await user.save();
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET as string, {
-      expiresIn: `${process.env.TOKEN_LIFE_TIME}s`,
+      expiresIn: Number(process.env.TOKEN_LIFE_TIME),
     });
     res.header("auth-token", token).status(200).send({
       name: savedUser.name,
@@ -63,7 +63,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
   }
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET as string, {
-    expiresIn: `${process.env.TOKEN_LIFE_TIME}s`,
+    expiresIn: Number(process.env.TOKEN_LIFE_TIME),
   });
 
   res.header("auth-token", token).status(200).send({
