@@ -1,5 +1,5 @@
 import User from '../model/User';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { registerValidation, loginValidation, } from '../helpers';
 const register = async (req, res) => {
@@ -51,7 +51,7 @@ const login = async (req, res) => {
         return;
     }
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-        expiresIn: `${process.env.TOKEN_LIFE_TIME}s`,
+        expiresIn: Number(process.env.TOKEN_LIFE_TIME),
     });
     res.header("auth-token", token).status(200).send({
         tokenLifeTime: +process.env.TOKEN_LIFE_TIME,

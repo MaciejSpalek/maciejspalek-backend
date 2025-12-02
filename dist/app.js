@@ -1,7 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-dotenv.config({ path: __dirname + "/.env" });
+import { fileURLToPath } from "url";
+import path from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, ".env") });
 import craftRoute from "./src/routes/craft";
 import imageRoute from "./src/routes/image";
 import postRoute from "./src/routes/post";

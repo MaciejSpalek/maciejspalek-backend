@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../model/User';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {
   registerValidation,
@@ -45,6 +45,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
 
 const login = async (req: Request, res: Response): Promise<void> => {
   const validationErrors = loginValidation(req.body);
+
   if (validationErrors) {
     res.status(422).send(validationErrors);
     return;

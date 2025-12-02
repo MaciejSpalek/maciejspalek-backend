@@ -13,7 +13,7 @@ const createOne = async (req: Request, res: Response): Promise<void> => {
     }
 
     await article.save();
-    res.send({ status: 200, message: "Sucessfully created" });
+    res.send({ status: 200, message: "Successfully created" });
   } catch (error) {
     res.send({ status: 400, message: error });
   }
@@ -36,7 +36,7 @@ const updateOne = async (req: Request, res: Response): Promise<void> => {
     const body = req.body;
 
     await Article.findByIdAndUpdate(id, body);
-    res.status(200).send({ status: 200, message: "Sucessfully updated" });
+    res.status(200).send({ status: 200, message: "Successfully updated" });
   } catch (error) {
     res.status(400).send({ status: 400, message: error });
   }
@@ -47,7 +47,7 @@ const deleteOne = async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id;
 
     await Article.findByIdAndDelete(id);
-    res.status(200).send({ status: 200, message: "Sucessfully deleted" });
+    res.status(200).send({ status: 200, message: "Successfully deleted" });
   } catch (error) {
     res.status(400).send({ status: 400, message: error });
   }
