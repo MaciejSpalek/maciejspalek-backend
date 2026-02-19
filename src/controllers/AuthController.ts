@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request as ExpressRequest, Response } from 'express';
 import User from '../model/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -6,6 +6,16 @@ import {
   registerValidation,
   loginValidation,
 } from '../helpers';
+
+interface DecodedToken {
+  _id: string;
+  iat?: number;
+  exp?: number;
+}
+
+interface Request extends ExpressRequest {
+  user?: DecodedToken;
+}
 
 const register = async (req: Request, res: Response): Promise<void> => {
   const { error } = registerValidation(req.body);
@@ -74,7 +84,28 @@ const login = async (req: Request, res: Response): Promise<void> => {
   });
 };
 
+const verifyUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user = await User.findById((req.user as DecodedToken)._id)
+console.log(req)
+    if (!user) {
+      res.status(401).json({ isAuthenticated: false });
+      return;
+    }
+
+    res.status(200).json({
+      isAuthenticated: true,
+      user,
+    });
+
+  } catch (error) {
+    res.status(500).json({ isAuthenticated: false });
+  }
+};
+
+
 export const authController = {
   register,
-  login
+  login,
+  verifyUser
 }
