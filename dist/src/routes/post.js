@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { postController } from "../controllers";
+import verifyToken from "../middleware/verifyToken";
+const router = Router();
+router.get("/list", postController.getList);
+router.get("/amount", postController.getPostsAmount);
+router.post("/create", verifyToken, postController.createOne);
+router.get("/:id", postController.getOne);
+router.put("/update/:id", verifyToken, postController.updateOne);
+router.delete("/delete/:id", verifyToken, postController.deleteOne);
+export default router;
