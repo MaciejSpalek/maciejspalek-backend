@@ -9,7 +9,7 @@ const createOne = async (req, res) => {
             return;
         }
         await article.save();
-        res.send({ status: 200, message: "Sucessfully created" });
+        res.send({ status: 200, message: "Successfully created" });
     }
     catch (error) {
         res.send({ status: 400, message: error });
@@ -30,7 +30,7 @@ const updateOne = async (req, res) => {
         const id = req.params.id;
         const body = req.body;
         await Article.findByIdAndUpdate(id, body);
-        res.status(200).send({ status: 200, message: "Sucessfully updated" });
+        res.status(200).send({ status: 200, message: "Successfully updated" });
     }
     catch (error) {
         res.status(400).send({ status: 400, message: error });
@@ -40,7 +40,7 @@ const deleteOne = async (req, res) => {
     try {
         const id = req.params.id;
         await Article.findByIdAndDelete(id);
-        res.status(200).send({ status: 200, message: "Sucessfully deleted" });
+        res.status(200).send({ status: 200, message: "Successfully deleted" });
     }
     catch (error) {
         res.status(400).send({ status: 400, message: error });

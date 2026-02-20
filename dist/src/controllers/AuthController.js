@@ -59,7 +59,25 @@ const login = async (req, res) => {
         token,
     });
 };
+const verifyUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        console.log(req);
+        if (!user) {
+            res.status(401).json({ isAuthenticated: false });
+            return;
+        }
+        res.status(200).json({
+            isAuthenticated: true,
+            user,
+        });
+    }
+    catch (error) {
+        res.status(500).json({ isAuthenticated: false });
+    }
+};
 export const authController = {
     register,
-    login
+    login,
+    verifyUser
 };
