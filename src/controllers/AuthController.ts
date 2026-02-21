@@ -1,6 +1,6 @@
 import { Request as ExpressRequest, Response } from 'express';
 import User from '../model/User';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import {
   registerValidation,
@@ -87,7 +87,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
 const verifyUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.findById((req.user as DecodedToken)._id)
-console.log(req)
+
     if (!user) {
       res.status(401).json({ isAuthenticated: false });
       return;
