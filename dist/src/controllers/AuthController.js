@@ -1,5 +1,5 @@
 import User from '../model/User';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { registerValidation, loginValidation, } from '../helpers';
 const register = async (req, res) => {
