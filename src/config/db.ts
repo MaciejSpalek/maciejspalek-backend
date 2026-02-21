@@ -2,15 +2,13 @@ import mongoose from "mongoose";
 
 export const connection = async () => {
   try {
-    const connectionParams = {
+    const connectionParams:  mongoose.ConnectOptions = {
       auth: {
-        authSource: "admin" ,
-      },
-      user: process.env.MONGO_DB_USER,
-      pass: process.env.MONGO_DB_PASSWORD,
+        username: process.env.MONGO_DB_USER,
+        password: process.env.MONGO_DB_PASSWORD,
+      }
     };
 
-    // @ts-ignore
     await mongoose.connect(process.env.MONGO_DB_URL as string, connectionParams);
     console.log("Connected to database");
   } catch (error) {
