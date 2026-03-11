@@ -1,4 +1,4 @@
-const getEmailHtml = ({ name, message }) =>
+export const getEmailHtml = ({ name, message }: {name: string; message: string;}) =>
   `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -39,10 +39,9 @@ const getEmailHtml = ({ name, message }) =>
       </html>
       `;
 
-const emailForClient = {
+export const emailForClient = {
     name: "Maciej Spałek",
     message:
         "Good morning, thank you very much for reaching out. I will do my best to respond as soon as possible. Best regards.",
 };
 
-module.exports = {getEmailHtml, emailForClient};
