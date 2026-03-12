@@ -52,5 +52,8 @@
             script: |
               cd ~/domains/$DOMAIN/public_nodejs
               cp dist/app.js app.js
+              cp -r dist/src ./src
+              rm -rf dist
               npm install --omit=dev
               devil www restart $DOMAIN
+    
