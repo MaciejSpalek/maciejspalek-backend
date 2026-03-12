@@ -50,5 +50,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/app
-            npm install --production
-            devil www restart $DOMAIN
+            npm install --omit=dev
+            devil www restart
