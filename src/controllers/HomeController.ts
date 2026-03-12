@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Home from '../model/Home';
 
-const create = async (req: Request, res: Response): Promise<void> => {
+export const create = async (req: Request, res: Response): Promise<void> => {
   try {
     const checkedHome = await Home.countDocuments();
 
@@ -18,7 +18,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const get = async (_: Request, res: Response): Promise<void> => {
+export const get = async (_: Request, res: Response): Promise<void> => {
   try {
     const home = await Home.find({});
     res.json(home);
@@ -26,8 +26,3 @@ const get = async (_: Request, res: Response): Promise<void> => {
     res.status(400).json(error);
   }
 };
-
-export const homeController = {
-  create,
-  get,
-}

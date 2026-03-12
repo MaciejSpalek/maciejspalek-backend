@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { articleValidation } from '../helpers';
 import Article from '../model/Article';
 
-const createOne = async (req: Request, res: Response): Promise<void> => {
+export const createOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const article = new Article(req.body);
 
@@ -19,7 +19,7 @@ const createOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getOne = async (req: Request, res: Response): Promise<void> => {
+export const getOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id;
 
@@ -30,7 +30,7 @@ const getOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const updateOne = async (req: Request, res: Response): Promise<void> => {
+export const updateOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id;
     const body = req.body;
@@ -42,7 +42,7 @@ const updateOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const deleteOne = async (req: Request, res: Response): Promise<void> => {
+export const deleteOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id;
 
@@ -53,7 +53,7 @@ const deleteOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getAll = async (req: Request, res: Response): Promise<void> => {
+export const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
     const articles = await Article.find()
       .sort({ created_at: -1 })
@@ -62,12 +62,4 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
   } catch (error) {
     res.status(400).send({ status: 400, message: error });
   }
-};
-
-export const articleController = {
-  createOne,
-  getOne,
-  updateOne,
-  deleteOne,
-  getAll,
 };

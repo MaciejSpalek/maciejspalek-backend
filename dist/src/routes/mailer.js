@@ -1,5 +1,7 @@
-import { Router } from 'express';
-import { send } from "../controllers";
-const router = Router();
-router.post("/send", send);
-export default router;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const MailerController_1 = require("../controllers/MailerController");
+const router = (0, express_1.Router)();
+router.post("/send", MailerController_1.send);
+exports.default = router;

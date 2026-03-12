@@ -1,6 +1,11 @@
-import { Router } from 'express';
-import { imageController } from "../controllers";
-import uploadMiddleware from "../middleware/upload";
-const router = Router();
-router.post("/upload", uploadMiddleware, imageController.upload);
-export default router;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ImageController_1 = require("../controllers/ImageController");
+const upload_1 = __importDefault(require("../middleware/upload"));
+const router = (0, express_1.Router)();
+router.post("/upload", upload_1.default, ImageController_1.upload);
+exports.default = router;

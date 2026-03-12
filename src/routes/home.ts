@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { homeController} from "../controllers";
+import { create, get } from "../controllers/HomeController";
 import verifyToken from "../middleware/verifyToken";
 
 const router: Router = Router();
 
-router.put("/create", verifyToken, homeController.create);
-router.get("/get", homeController.get);
+router.put("/create", verifyToken, create);
+router.get("/get", get);
 
 export default router;

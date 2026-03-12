@@ -1,4 +1,7 @@
-export const getEmailHtml = ({ name, message }) => `<!DOCTYPE html>
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.emailForClient = exports.getEmailHtml = void 0;
+const getEmailHtml = ({ name, message }) => `<!DOCTYPE html>
       <html lang="en">
       <head>
       <meta charset="UTF-8">
@@ -37,7 +40,8 @@ export const getEmailHtml = ({ name, message }) => `<!DOCTYPE html>
       </body>
       </html>
       `;
-export const emailForClient = {
+exports.getEmailHtml = getEmailHtml;
+exports.emailForClient = {
     name: "Maciej Spałek",
     message: "Good morning, thank you very much for reaching out. I will do my best to respond as soon as possible. Best regards.",
 };
