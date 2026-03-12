@@ -1,54 +1,56 @@
-name: Deploy
+  name: Deploy
 
-on:
-  push:
-    branches:
-      - develop
-      - main
+  on:
+    push:
+      branches:
+        - develop
+        - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+        - name: Setup Node
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
 
-      - name: Install dependencies
-        run: npm ci
+        - name: Install dependencies
+          run: npm ci
 
-      - name: Build TypeScript
-        run: npm run build
+        - name: Build TypeScript
+          run: npm run build
 
-      - name: Set domain
-        run: |
-          if [ "${GITHUB_REF##*/}" = "main" ]; then
-            echo "DOMAIN=spwrtt.usermd.net" >> $GITHUB_ENV
-          else
-            echo "DOMAIN=dev.spwrtt.usermd.net" >> $GITHUB_ENV
-          fi
+        - name: Set domain
+          run: |
+            if [ "${GITHUB_REF##*/}" = "main" ]; then
+              echo "DOMAIN=spwrtt.usermd.net" >> $GITHUB_ENV
+            else
+              echo "DOMAIN=dev.spwrtt.usermd.net" >> $GITHUB_ENV
+            fi
 
-      - name: Upload build to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "dist,package.json,package-lock.json"
-          target: "~/app"
+        - name: Upload build to server
+          uses: appleboy/scp-action@v0.1.7
+          with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USER }}
+            key: ${{ secrets.SSH_KEY }}
+            source: "dist,package.json,package-lock.json"
+            target: "~/domains/${{ env.DOMAIN }}/public_nodejs"
 
-      - name: Install deps and restart node
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ~/app
-            npm install --omit=dev
-            devil www restart
+        - name: Install deps and restart node
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USER }}
+            key: ${{ secrets.SSH_KEY }}
+            envs: DOMAIN
+            script: |
+              cd ~/domains/$DOMAIN/public_nodejs
+              cp dist/app.js app.js
+              npm install --omit=dev
+              devil www restart $DOMAIN
