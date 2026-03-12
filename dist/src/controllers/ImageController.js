@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.upload = void 0;
 const upload = async (req, res) => {
     try {
         const protocol = req.protocol;
@@ -14,6 +17,7 @@ const upload = async (req, res) => {
         res.status(400).json(error);
     }
 };
+exports.upload = upload;
 // const deleteOne = async (req: Request, res: Response): Promise<void> => {
 //   try {
 //     await gfs.files.deleteOne({ filename: req.params.filename });
@@ -22,6 +26,3 @@ const upload = async (req, res) => {
 //     res.send("An error occured.");
 //   }
 // };
-export const imageController = {
-    upload,
-};

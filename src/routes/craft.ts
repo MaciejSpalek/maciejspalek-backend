@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { craftController } from "../controllers";
+import { createOrUpdate, getAll, getOne } from "../controllers/CraftController";
 import verifyToken from "../middleware/verifyToken";
 
 const router: Router = Router();
 
-router.put("/create-or-update", verifyToken, craftController.createOrUpdate);
-router.get("/get-all", craftController.getAll);
-router.get("/get/:type", craftController.getOne);
+router.put("/create-or-update", verifyToken, createOrUpdate);
+router.get("/get-all", getAll);
+router.get("/get/:type", getOne);
 
 export default router;

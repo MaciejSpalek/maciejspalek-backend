@@ -1,14 +1,19 @@
 import { Router } from 'express';
-import { postController } from "../controllers";
+import { getList,
+    getPostsAmount,
+    createOne,
+    getOne,
+    updateOne,
+    deleteOne } from "../controllers/PostController";
 import verifyToken from "../middleware/verifyToken";
 
 const router: Router = Router();
 
-router.get("/list", postController.getList);
-router.get("/amount", postController.getPostsAmount);
-router.post("/create", verifyToken, postController.createOne);
-router.get("/:id", postController.getOne);
-router.put("/update/:id", verifyToken, postController.updateOne);
-router.delete("/delete/:id", verifyToken, postController.deleteOne);
+router.get("/list", getList);
+router.get("/amount", getPostsAmount);
+router.post("/create", verifyToken, createOne);
+router.get("/:id", getOne);
+router.put("/update/:id", verifyToken, updateOne);
+router.delete("/delete/:id", verifyToken, deleteOne);
 
 export default router;

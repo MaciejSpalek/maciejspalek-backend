@@ -1,14 +1,21 @@
-import Joi from '@hapi/joi';
-export const registerValidation = (data) => {
-    return Joi.object({
-        name: Joi.string().min(3).max(15).required(),
-        password: Joi.string().min(6).max(100).required(),
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.articleValidation = exports.loginValidation = exports.registerValidation = void 0;
+const joi_1 = __importDefault(require("@hapi/joi"));
+const registerValidation = (data) => {
+    return joi_1.default.object({
+        name: joi_1.default.string().min(3).max(15).required(),
+        password: joi_1.default.string().min(6).max(100).required(),
     }).validate(data);
 };
-export const loginValidation = (data) => {
-    const { error } = Joi.object({
-        name: Joi.string().min(3).max(15).required(),
-        password: Joi.string().min(6).max(100).required(),
+exports.registerValidation = registerValidation;
+const loginValidation = (data) => {
+    const { error } = joi_1.default.object({
+        name: joi_1.default.string().min(3).max(15).required(),
+        password: joi_1.default.string().min(6).max(100).required(),
     }).validate(data, { abortEarly: false });
     if (!error)
         return null;
@@ -21,17 +28,18 @@ export const loginValidation = (data) => {
     });
     return errors;
 };
-export const articleValidation = (data) => {
-    const { error } = Joi.object({
-        description: Joi.string().min(3).required(),
-        image: Joi.string().required(),
-        summary: Joi.string().min(3).max(1000).required(),
-        title: Joi.string().min(3).max(1000).required(),
-        blocks: Joi.array().items({
-            type: Joi.string().required(),
-            description: Joi.string().min(3).max(1000).required(),
-            image: Joi.string().allow(null, ""),
-            title: Joi.string().allow(null, ""),
+exports.loginValidation = loginValidation;
+const articleValidation = (data) => {
+    const { error } = joi_1.default.object({
+        description: joi_1.default.string().min(3).required(),
+        image: joi_1.default.string().required(),
+        summary: joi_1.default.string().min(3).max(1000).required(),
+        title: joi_1.default.string().min(3).max(1000).required(),
+        blocks: joi_1.default.array().items({
+            type: joi_1.default.string().required(),
+            description: joi_1.default.string().min(3).max(1000).required(),
+            image: joi_1.default.string().allow(null, ""),
+            title: joi_1.default.string().allow(null, ""),
         }).required(),
     }).validate(data, { abortEarly: false });
     if (!error)
@@ -45,3 +53,4 @@ export const articleValidation = (data) => {
     });
     return errors;
 };
+exports.articleValidation = articleValidation;

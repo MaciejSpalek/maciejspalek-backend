@@ -7,7 +7,7 @@ interface CraftBody {
   [key: string]: any;
 }
 
-const createOrUpdate = async (req: Request, res: Response): Promise<void> => {
+export const createOrUpdate = async (req: Request, res: Response): Promise<void> => {
   try {
     const crafts: CraftBody[] = req.body.crafts;
     
@@ -28,7 +28,7 @@ const createOrUpdate = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getAll = async (_: Request, res: Response): Promise<void> => {
+export const getAll = async (_: Request, res: Response): Promise<void> => {
   try {
     const craft = await Craft.find({});
     res.json(craft);
@@ -37,7 +37,7 @@ const getAll = async (_: Request, res: Response): Promise<void> => {
   }
 };
 
-const getOne = async (req: Request, res: Response): Promise<void> => {
+export const getOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const type = req.params.type;
     const [craft] = await Craft.find({ type });
@@ -47,8 +47,3 @@ const getOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const craftController = {
-  createOrUpdate,
-  getAll,
-  getOne,
-}
