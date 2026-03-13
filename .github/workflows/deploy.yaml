@@ -4,7 +4,7 @@
     push:
       branches:
         - develop
-        - main
+        - master
 
   jobs:
     deploy:
@@ -27,7 +27,7 @@
 
         - name: Set domain
           run: |
-            if [ "${GITHUB_REF##*/}" = "main" ]; then
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
               echo "DOMAIN=spwrtt.usermd.net" >> $GITHUB_ENV
             else
               echo "DOMAIN=dev.spwrtt.usermd.net" >> $GITHUB_ENV
