@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Post from '../model/Post';
 
-const createOne = async (req: Request, res: Response): Promise<void> => {
+export const createOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const post = new Post(req.body);
     await post.save();
@@ -11,7 +11,7 @@ const createOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getOne = async (req: Request, res: Response): Promise<void> => {
+export const getOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const post = await Post.findById(req.params.id);
     res.status(200).send({ data: post, status: 200 });
@@ -20,7 +20,7 @@ const getOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const deleteOne = async (req: Request, res: Response): Promise<void> => {
+export const deleteOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id;
     await Post.findByIdAndDelete(id);
@@ -30,7 +30,7 @@ const deleteOne = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const updateOne = async (req: Request, res: Response): Promise<void> => {
+export const updateOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id;
     const body = req.body;
@@ -47,7 +47,7 @@ interface PostQuery {
   limit?: string;
 }
 
-const getList = async (req: Request, res: Response): Promise<void> => {
+export const getList = async (req: Request, res: Response): Promise<void> => {
   try {
     const { type, limit } = req.query as PostQuery;
     const posts = await Post.find(type ? { type } : {})
@@ -59,7 +59,7 @@ const getList = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getPostsAmount = async (req: Request, res: Response): Promise<void> => {
+export const getPostsAmount = async (req: Request, res: Response): Promise<void> => {
   try {
     const { type } = req.query as PostQuery;
     const postsAmount = await Post.countDocuments({ type });
@@ -67,13 +67,4 @@ const getPostsAmount = async (req: Request, res: Response): Promise<void> => {
   } catch (error) {
     res.send({ status: 400, message: error });
   }
-};
-
-export const postController = {
-  createOne,
-  getOne,
-  deleteOne,
-  updateOne,
-  getList,
-  getPostsAmount,
 };

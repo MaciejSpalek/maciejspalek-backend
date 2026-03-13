@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 // For TypeScript, we'll need to declare it or import it properly
 declare const gfs: any;
 
-const upload = async (req: Request, res: Response): Promise<void> => {
+export const upload = async (req: Request, res: Response): Promise<void> => {
   try {
     const protocol = req.protocol;
     const host = req.get("host");
@@ -33,6 +33,3 @@ const upload = async (req: Request, res: Response): Promise<void> => {
 //   }
 // };
 
-export const imageController = {
-  upload,
-}

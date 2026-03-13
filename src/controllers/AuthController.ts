@@ -17,7 +17,7 @@ interface Request extends ExpressRequest {
   user?: DecodedToken;
 }
 
-const register = async (req: Request, res: Response): Promise<void> => {
+export const register = async (req: Request, res: Response): Promise<void> => {
   const { error } = registerValidation(req.body);
   if (error) {
     res.status(400).send(error.details[0].message);
@@ -53,7 +53,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const login = async (req: Request, res: Response): Promise<void> => {
+export const login = async (req: Request, res: Response): Promise<void> => {
   const validationErrors = loginValidation(req.body);
 
   if (validationErrors) {
@@ -84,7 +84,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
   });
 };
 
-const verifyUser = async (req: Request, res: Response): Promise<void> => {
+export const verifyUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.findById((req.user as DecodedToken)._id)
 
@@ -102,10 +102,3 @@ const verifyUser = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ isAuthenticated: false });
   }
 };
-
-
-export const authController = {
-  register,
-  login,
-  verifyUser
-}
