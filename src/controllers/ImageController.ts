@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
 
-// Note: The gfs variable is not defined in this file in the original code
-// It might be a global variable or imported elsewhere
-// For TypeScript, we'll need to declare it or import it properly
 declare const gfs: any;
 
 export const upload = async (req: Request, res: Response): Promise<void> => {
